@@ -28,7 +28,7 @@ public class BookController {
         String clientId = "t4nXUrT4ciHWuYDcrSiL";
         String clientSecret = "hCAmyzJqLl";
 
-        //String apiURL = "https://openapi.naver.com/v1/search/blog?query=" + text;    // JSON 결과
+        //String apiURL 및 테스트 = "https://openapi.naver.com/v1/search/blog?query=" + text;    // JSON 결과
         URI uri = UriComponentsBuilder
                 .fromUriString("https://openapi.naver.com")
                 .path("/v1/search/book.json")
