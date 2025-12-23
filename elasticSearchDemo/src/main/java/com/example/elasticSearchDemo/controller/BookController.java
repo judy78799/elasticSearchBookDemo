@@ -48,6 +48,7 @@ public class BookController {
                 .build();
 
         //Spring 제공 restTemplate
+        //RestTemplate는 스프링 프레임워크가 제공하는 클래스로, RESTful 웹 서비스와 상호작용 하는 과정을 단순화하여 편리하게 API를 호출할 수 있습니다.
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> resp = restTemplate.exchange(req, String.class);
 
@@ -63,7 +64,15 @@ public class BookController {
             e.printStackTrace();
         }
 
-        List<BookVO> books =resultVO.getItems();	// books를 list.html에 출력 -> model 선언
+        List<BookVO> books = resultVO.getItems();	// books를 list.html에 출력 -> model 선언
+        for (BookVO book : books){
+            restTemplate.postForObject(
+                    "http://localhost:9200/books/_doc",
+                    book,
+                    String.class
+            );
+        }
+
         model.addAttribute("books", books);
 
 
