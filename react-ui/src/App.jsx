@@ -1,10 +1,11 @@
 import './App.css'
-import {useEffect, useState} from 'react';
+import React,{useEffect, useState} from 'react';
+import Timer from './component/Timer';
 
 function App() {
-
+    const [showTimer, setShowTimer] = useState(false);
   return (
-    <div>
+    <div><Timer/>
         <button>Toggle Timer</button>
     </div>
   );
