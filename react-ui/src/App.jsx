@@ -5,38 +5,27 @@ import React,{useEffect, useState, useRef} from 'react'
 //useState: 렌더링 이후 값 초기화.
 
 function App() {
-    const [renderer, setRenderer] = useState(0);
-     const countRef = useRef(0);
-     let countVar = 0;
-  console.log(countRef);    //countRef.current 현재 값 확인
-   const doRendering = () => {
-    setRenderer(renderer + 1);
-   }
+    const [count, setCount] = useState(1);
+    const renderCount = useRef(1);
 
-    const increaseRef = () => {
-        countRef.current = countRef.current + 1;
-        console.log('ref: ', countRef.current);
-    }
+    //[error case]: 무한 렌더링 발생 useEffect -> setRenderCount 업데이트 -> useEffect 무한 반복
+    // useEffect(() => {
+    //     console.log('렌더링!');
+    //     setRenderCount(renderCount + 1);
+    // });
 
-    const increaseVar = () => {
-        countVar = countVar + 1;
-        console.log('var: ', countVar);
-    };
+    useEffect(() => {
+    // 화면 최초 렌더링
+        renderCount.current = renderCount.current + 1;
+        console.log('렌더링 수: ', renderCount.current);
+    })
 
-    const printResults = () => {
-        console.log(`ref: ${countRef.current}, var: ${countVar}`);
-    }
+    return (
+        <div>
+          <p>Count: {count}</p>
+          <button onClick={() => setCount(count + 1)}>올려</button>
+        </div>
+    );
+};
 
-  return (
-    <div>
-        <p>Ref: {countRef.current}</p>
-        <p>Var: {countVar}</p>
-        <button onClick={doRendering}>렌더!</button>
-        <button onClick={increaseRef}>Ref 올려</button>
-        <button onClick={increaseVar}>Var 올려</button>
-        <button onClick={doRendering}>Ref Var 값 출력</button>
-    </div>
-  );
-}
-
-export default App
+export default App;
